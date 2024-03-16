@@ -1,6 +1,6 @@
 # Mobile Development using Flutter
 
-This repository focuses on learning Mobile Development with Flutter by creating different project tutorials.
+This repository focuses on learning Mobile Development with Flutter by developing projects from different tutorials.
 
 ## Table of Contents
 
