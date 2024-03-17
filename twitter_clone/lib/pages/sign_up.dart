@@ -98,31 +98,33 @@ class _SignUpState extends ConsumerState<SignUp> {
               width: 250,
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(30)),
-              child: TextButton(
-                onPressed: () async {
-                  if (_signUpKey.currentState!.validate()) {
-                    try {
-                      await _auth.createUserWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-                      await ref
-                          .read(userProvider.notifier)
-                          .signUp(emailController.text);
-                      if (!mounted) return;
-                      Navigator.pop(context);
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(e.toString())),
-                      );
+              child: Builder(builder: (BuildContext context) {
+                return TextButton(
+                  onPressed: () async {
+                    if (_signUpKey.currentState!.validate()) {
+                      try {
+                        await _auth.createUserWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                        await ref
+                            .read(userProvider.notifier)
+                            .signUp(emailController.text);
+                        if (!context.mounted) return;
+                        Navigator.pop(context);
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(e.toString())),
+                        );
+                      }
                     }
-                  }
-                },
-                child: const Text(
-                  'Sign Up',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ),
+                  },
+                  child: const Text(
+                    'Sign Up',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                );
+              }),
             ),
             TextButton(
               onPressed: () {
